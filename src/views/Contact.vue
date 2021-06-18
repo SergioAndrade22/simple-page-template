@@ -1,27 +1,9 @@
 <template>
     <div class="contact">
-        <div id="map-container">
-            <h1 class="title">
-                {{title}}
-            </h1>
-            <l-map
-                style="height: 80%; width: 100%"
-                :zoom="zoom"
-                :center="center"
-                @update:zoom="zoomUpdated"
-                @update:center="centerUpdated"
-                @update:bounds="boundsUpdated"
-            >
-                <l-tile-layer :url="url"></l-tile-layer>
-                <l-marker :lat-lng="markerLatLng">
-                    <l-popup>{{popupText}}</l-popup>
-                </l-marker>
-            </l-map>
-            <p class="footnote">
-                <i class="fas fa-map-marker-alt"></i>
-                {{location}}
-            </p>
-        </div>
+        <h1 class="title">
+            {{title}}
+        </h1>
+        <app-map></app-map>
         <div class="form-container">
             <div class="information-container">
                 <div class="information__field">
@@ -92,55 +74,21 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { BLink, BButton } from 'bootstrap-vue'
-import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
-import { Icon } from 'leaflet'
-
-// The following 2 methods solve the missing marker icon
-delete Icon.Default.prototype._getIconUrl
-Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-})
+import Map from '@/components/Map.vue'
 
 Vue.component('b-button', BButton)
 Vue.component('b-link', BLink)
-Vue.component('l-map', LMap)
-Vue.component('l-tile-layer', LTileLayer)
-Vue.component('l-marker', LMarker)
-Vue.component('l-popup', LPopup)
+Vue.component('app-map', Map)
 
 @Component
 export default class Contact extends Vue {
-    private url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    private zoom = 17
-    private center = [37.563379, -77.465775]
-    private markerLatLng = [37.563379, -77.465775]
-    private bounds: [] = []
-    private location = '2401 W Leigh St, Richmond, VA 23220, USA'
-    private popupText = 'We are here!'
     private title = 'Where to find us?'
     private phone = '+1 202 555 0191'
     private email = 'familysizerestaurant@gmail.com'
-
-    zoomUpdated (zoom: number): void {
-      this.zoom = zoom
-    }
-
-    centerUpdated (center: number[]): void {
-      this.center = center
-    }
-
-    boundsUpdated (bounds: []): void {
-      this.bounds = bounds
-    }
 }
 </script>
 
 <style lang="sass" scoped>
-#map-container
-    height: 30rem
-
 .button-container
     display: flex
     justify-content: flex-end
@@ -197,14 +145,6 @@ export default class Contact extends Vue {
 .title
     text-align: left
     font-size: min(8vw, 2em)
-
-.footnote
-    text-align: right
-    font-size: 75%
-    font-weight: 300
-    line-height: 2
-    align-self: center
-    color: grey
 
 .form
     &-container
