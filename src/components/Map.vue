@@ -10,7 +10,7 @@
         >
             <l-tile-layer :url="url"></l-tile-layer>
             <l-marker :lat-lng="markerLatLng">
-                <l-popup>{{popupText}}</l-popup>
+                <l-tooltip :options="{ permanent: true }">{{popupText}}</l-tooltip>
             </l-marker>
         </l-map>
         <p class="footnote">
@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
+import { LMap, LTileLayer, LMarker, LTooltip } from 'vue2-leaflet'
 import { Icon } from 'leaflet'
 
 // The following 2 methods solve the missing marker icon
@@ -36,7 +36,7 @@ Icon.Default.mergeOptions({
 Vue.component('l-map', LMap)
 Vue.component('l-tile-layer', LTileLayer)
 Vue.component('l-marker', LMarker)
-Vue.component('l-popup', LPopup)
+Vue.component('l-tooltip', LTooltip)
 
 @Component
 export default class Map extends Vue {
