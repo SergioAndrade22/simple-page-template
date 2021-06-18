@@ -189,6 +189,7 @@ export default class Contact extends Vue {
             padding: 1em
             width: 100%
             height: 100%
+            margin-bottom: .4em
 
 .contact
     margin: 1em
