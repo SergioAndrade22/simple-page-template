@@ -85,6 +85,7 @@ export default class Contact extends Vue {
     private title = 'Where to find us?'
     private phone = '+1 202 555 0191'
     private email = 'familysizerestaurant@gmail.com'
+    private location = '2401 W Leigh St, Richmond, VA 23220, USA'
 }
 </script>
 
