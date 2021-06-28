@@ -18,7 +18,11 @@
             </label>
 
             <div>
-                {{selectedCurrency}}
+                <Card
+                    title="You will surely come back!"
+                    subTitle="We have a wide range of dishes from many cultures!"
+                    text="This is the 21st century, you deserve to eat more and better!"
+                />
             </div>
         </div>
     </div>
@@ -28,12 +32,17 @@
 import { Component, Vue } from 'vue-property-decorator'
 import FamilySizeAPI from '../services/FamilySizeAPI'
 import FixerIOAPI from '../services/FixerIOAPI'
+import Card from '../components/Card.vue'
 
-@Component
+@Component({
+  components: {
+    Card
+  }
+})
 export default class Menu extends Vue {
     familySizeService: FamilySizeAPI
     fixerIOService: FixerIOAPI
-    currencies: any[] = []
+    currencies: [string, number][] = [['EUR', 1], ['USD', 1.24]]
     selectedCurrency = ['EUR', 1]
     loadingCurrencies = true
 
@@ -41,12 +50,12 @@ export default class Menu extends Vue {
       super()
       this.familySizeService = new FamilySizeAPI()
       this.fixerIOService = new FixerIOAPI()
-      this.fixerIOService.getCurrencies().then((res) => {
-        this.loadingCurrencies = false
-        for (const rate of Object.entries(res.rates)) {
-          this.currencies.push(rate)
-        }
-      })
+    //   this.fixerIOService.getCurrencies().then((res) => {
+    //     this.loadingCurrencies = false
+    //     for (const rate of Object.entries(res.rates)) {
+    //       this.currencies.push(rate)
+    //     }
+    //   })
     }
 }
 </script>
